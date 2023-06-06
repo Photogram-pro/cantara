@@ -131,7 +131,7 @@ const testCommand: CantaraCommand = {
 
 const deployCommand: CantaraCommand = {
   name: 'deploy',
-  description: 'Deploy a serverless endpoint',
+  description: 'Deploy a serverless endpoint ',
   configuration: {
     needsActiveApp: true,
     appTypes: ['serverless'],
