@@ -2,8 +2,12 @@
 import 'array-flat-polyfill';
 import setupCliInterface from './cli';
 
+function test() {
+  console.log("Photogram cantara");
+}
+
 function main() {
-  console.info("cantara photogram");
+  test();
   setupCliInterface();
 }
 
