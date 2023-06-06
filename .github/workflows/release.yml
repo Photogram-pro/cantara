@@ -23,7 +23,6 @@ jobs:
           yarn build
       - name: Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm config set _authToken=$NPM_TOKEN
