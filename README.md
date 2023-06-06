@@ -1,4 +1,7 @@
-![Cantara](docs/static/img/cantara.svg 'Cantara Logo') 
+<h1>
+   Cantara Photogram Frok
+</h1>
+<a href="https://www.npmjs.com/package/cantara-ph">npm package</a>
 
 <h1 align="center">
    <a href="https://cantara.js.org">Cantara</a>
@@ -56,7 +59,7 @@ The development of this project is sponsored by [Crystal Design GmbH](https://di
 
 ## Installation
 
-    npm install -g cantara
+    npm install -g cantara-ph
 
 ## Getting started
 
@@ -65,7 +68,7 @@ You can get a new Cantara project up and running on your local dev environment i
 1. **Install the Cantara CLI.**
 
    ```shell
-   npm install -g cantara
+   npm install -g cantara-ph
    ```
 
    _Requires Node.js version > 10_
