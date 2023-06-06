@@ -1,6 +1,6 @@
 {
   "name": "cantara-ph",
-  "version": "0.0.0-development",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/index.js",
   "bin": {
