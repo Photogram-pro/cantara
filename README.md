@@ -1,5 +1,5 @@
 <h1>
-   Cantara Photogram Frok
+   Cantara Photogram Fork
 </h1>
 <a href="https://www.npmjs.com/package/cantara-ph">npm package</a>
 
