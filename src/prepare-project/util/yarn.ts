@@ -17,9 +17,8 @@ interface ActualInstalledDependencies {
  */
 export async function autoInstallMissingPackages(rootDir: string) {
   const localPackageJsonPath = path.join(rootDir, 'package.json');
-  const { devDependencies = {}, dependencies = {} } = readFileAsJSON(
-    localPackageJsonPath,
-  );
+  const { devDependencies = {}, dependencies = {} } =
+    readFileAsJSON(localPackageJsonPath);
   const {
     devDependencies: actualDevDependencies = {},
     dependencies: actualDependencies = {},
@@ -75,8 +74,9 @@ function getInstalledDependencies({
         if (existsSync(depPath)) {
           let actualVersion = 'not_specified';
           try {
-            actualVersion = readFileAsJSON(path.join(depPath, 'package.json'))
-              .version;
+            actualVersion = readFileAsJSON(
+              path.join(depPath, 'package.json'),
+            ).version;
           } catch (e) {}
           // Version missmatch
           if (!version.includes(actualVersion)) {
@@ -165,23 +165,42 @@ export async function createOrUpdatePackageJSON({
   if (!doesExist) {
     await execCmd('yarn init -y', { workingDirectory: rootDir });
   }
-  let packageJsonContent = readFileAsJSON(localPackageJsonPath);
-  packageJsonContent = {
-    ...packageJsonContent,
-    devDependencies: {
-      ...packageJsonContent.devDependencies,
-      ...expectedDevDependencies,
-    },
-    dependencies: {
-      ...packageJsonContent.dependencies,
-      ...expectedDependencies,
-    },
+  let currentpackageJsonContent = readFileAsJSON(localPackageJsonPath);
+  let newPackageJsonContent = {
+    ...currentpackageJsonContent,
   };
-  if (workspaces) {
-    packageJsonContent = {
-      ...packageJsonContent,
+  let devDependencies = {
+    ...expectedDevDependencies,
+    ...currentpackageJsonContent.devDependencies,
+  };
+  if (Object.keys(devDependencies).length) {
+    newPackageJsonContent.devDependencies = devDependencies;
+  }
+  let dependencies = {
+    ...expectedDependencies,
+    ...currentpackageJsonContent.dependencies,
+  };
+
+  if (Object.keys(dependencies).length) {
+    newPackageJsonContent.dependencies = dependencies;
+  }
+  if (
+    workspaces &&
+    (!newPackageJsonContent.workspaces ||
+      Array.isArray(newPackageJsonContent.workspaces))
+  ) {
+    newPackageJsonContent = {
+      ...newPackageJsonContent,
       workspaces,
     };
+  } else if (workspaces) {
+    newPackageJsonContent = {
+      ...newPackageJsonContent,
+      workspaces: {
+        ...newPackageJsonContent.workspaces,
+        packages: workspaces,
+      },
+    };
   }
-  writeJson(localPackageJsonPath, packageJsonContent);
+  writeJson(localPackageJsonPath, newPackageJsonContent);
 }
